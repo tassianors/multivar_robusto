@@ -1,0 +1,63 @@
+
+\documentclass{ppgeesa}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{listings}
+
+\lstset{stepnumber=2, frame=single,tabsize=2, breaklines=true, basicstyle=\footnotesize}
+
+\hypersetup{
+	colorlinks,
+	debug=true,
+	linkcolor=black,  %%% cor do tableofcontents, \ref, \footnote, etc
+	citecolor=red,  %%% cor do \cite
+	urlcolor=blue,   %%% cor do \url e \href
+	bookmarksopen=true,
+	pdftitle={Filtro de Kalman},
+	pdfauthor={Tassiano Neuhaus},
+	pdfsubject={Sistemas de controle multivariáveis},
+	pdfkeywords={Controle}
+	%pdfpagemode=FullScreen
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\title{Filtro de Kalman, LQG e LQR em tempo discreto}
+
+\author{Tassiano Neuhaus\\
+{\small Universidade Federal do Rio Grande do Sul - Departamento de Engenharia Elétrica\\Av. Osvaldo Aranha, 103 - Bairro Bom Fim CEP: 90035-190 - Porto Alegre - RS - Brazil}\\
+}%\thanks{Tassiano Neuhaus, tassianors@gmail.com, Tel +55-51-91760154}}
+
+\maketitle
+\thispagestyle{empty}\pagestyle{empty}
+
+\begin{abstract}
+Este trabalho apresenta a formulacão do filtro de Kalman e algumas de suas aplicações.
+
+Apresenta também a o problema de Linear-Quadratic Regulator (LQR) e Linear-Quadratic 
+Gausian (LQG) para tempo discreto.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Filtro de Kalman, LQG, LQR.
+\end{IEEEkeywords}
+
+\input{input/intro.tex}
+\input{input/kalman.tex}
+\input{input/applications.tex}
+\input{input/lqg_lqr.tex}
+\input{input/concl.tex}
+
+\bibliographystyle{IEEEtran}
+\bibliography{biblio}
+
+\end{document}
