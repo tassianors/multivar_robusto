@@ -19,10 +19,10 @@
 	citecolor=red,  %%% cor do \cite
 	urlcolor=blue,   %%% cor do \url e \href
 	bookmarksopen=true,
-	pdftitle={Filtro de Kalman},
+	pdftitle={Controle Robusto},
 	pdfauthor={Tassiano Neuhaus},
 	pdfsubject={Sistemas de controle multivariáveis},
-	pdfkeywords={Controle}
+	pdfkeywords={Controle Robusto}
 	%pdfpagemode=FullScreen
 }
 
@@ -31,30 +31,32 @@
 
 \begin{document}
 
-\title{Filtro de Kalman, LQG e LQR em tempo discreto}
+\title{Controle Robusto e Caracterização de incertezas}
 
 \author{Tassiano Neuhaus\\
 {\small Universidade Federal do Rio Grande do Sul - Departamento de Engenharia Elétrica\\Av. Osvaldo Aranha, 103 - Bairro Bom Fim CEP: 90035-190 - Porto Alegre - RS - Brazil}\\
-}%\thanks{Tassiano Neuhaus, tassianors@gmail.com, Tel +55-51-91760154}}
+}%\thanks{Tassiano Neuhaus, tassianors@gmail.com, tel +55-51-91760154}}
 
 \maketitle
 \thispagestyle{empty}\pagestyle{empty}
 
 \begin{abstract}
-Este trabalho apresenta a formulacão do filtro de Kalman e algumas de suas aplicações.
+Neste trabalho será apresentado a caracterização de um sistema sujeito a incertezas. A caracterização
+será baseada nos seguintes tipos: Politópicas, limitadas em norma, diagonal e elemento por elemento.
 
-Apresenta também a o problema de Linear-Quadratic Regulator (LQR) e Linear-Quadratic 
-Gausian (LQG) para tempo discreto.
+Para cada uma das incertezas caracterizadas será projetada uma realimentação de estados para minimizar
+a norma {\it{H2}} em malha fechada. O mesmo será feito para minimizar a norma {\it{$H_{\infty}$}}
 \end{abstract}
 
 \begin{IEEEkeywords}
-Filtro de Kalman, LQG, LQR.
+Controle Robusto, Incertezas politópicas, limitadas em norma e diagonais.
 \end{IEEEkeywords}
 
 \input{input/intro.tex}
-\input{input/kalman.tex}
-\input{input/applications.tex}
-\input{input/lqg_lqr.tex}
+\input{input/caracterization.tex}
+\input{input/normH2.tex}
+\input{input/normHinf.tex}
+\input{input/nominal.tex}
 \input{input/concl.tex}
 
 \bibliographystyle{IEEEtran}
