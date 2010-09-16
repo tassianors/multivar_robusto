@@ -1,0 +1,312 @@
+\section{Filtro de Kalman}
+\label{sec:kalman_filter}
+%===============================================================================
+\subsection{História}
+
+Em 1960 Rudolph Emil Kalman publicou um famoso artigo \cite{kalman60} descrevendo
+um processo recursivo para solucionar problemas lineares relacionados à filtragem
+de dados discretos. Sua pesquisa proporcionou contribuições relevantes ajudando
+a estabelecer bases teóricas sólidas em várias áreas da engenharia de sistemas. Em
+1960-1961 Kalman desenvolveu, com colaboração de Richard S. Bucy, a versão
+em tempo contínuo do filtro de Kalman, que se tornou conhecida como o filtro de
+Kalman-Bucy \cite{kalman_bucy}. Com o avanço computacional, o filtro de Kalman e
+suas extensões a problemas não lineares representam o produto mais largamente
+utilizado dentro da moderna teoria de controle.
+
+%===============================================================================
+\subsection{O Filtro} 
+
+O filtro de Kalman assume que a função densidade de probabilidade em cada
+instante de tempo segue uma distribuição Gaussiana. Este filtro permite a
+estimativa do estado de um sistema de forma a minimizar o quadrado da
+média do erro \cite{welch_bishop}, tratando-se de uma solução ótima para o seguimento,
+caso sejam satisfeitas algumas restrições: se o ruído tiver uma distribuição
+Gaussiana de parâmetros conhecidos e se a transição de estados representada
+pelo modelo do sistema for linear \cite{welch_bishop} \cite{Arulampalam}.
+
+O Filtro de Kalman é bastante poderoso e versátil em diversos aspectos: ele 
+suporta estimações do passado, presente e até mesmo futuros estados do sistema, 
+mesmo quando o modelo do sistema não é totalmente conhecido.\cite{welch_bishop}
+
+%===============================================================================
+\subsubsection{Filtro de Kalman Discreto}
+
+O Filtro de Kalman foi altamente difundido por sua robustez e facilidade de implementação
+do algoritmo proposto. Desta forma sistemas computacionais podem, de forma bem
+eficiente, utilizar o filtro e expandir a sua utilização.
+
+O processo a ser estimado é o descrito em (\ref{eq:sis_disc}) com $x \subset \Re^{n}$ e
+com a saída mensurável descrita por (\ref{eq:sis_disc_out}) onde $z \subset \Re^{m}$.
+
+\begin{equation}
+x_k = Ax_{k-1} +Bu_{k-1}+w_{k-1}
+\label{eq:sis_disc}
+\end{equation}
+
+\begin{equation}
+z_k = Hx_k + \nu_k
+\label{eq:sis_disc_out}
+\end{equation}
+
+As origens computacionais do filtro:
+
+Define-se $\hat{x}_{k}^{-} \in \Re^n$ como sendo o estado {\it{a priori}} estimado para
+um $k$ definido, bastando para isso o conhecimento do estado anterior. Chama-se 
+$\hat{x}_{k} \in \Re^n$ como sendo o estado {\it{a posteriori}}. Pode-se definir estados
+pelas equações abaixo:
+
+\begin{equation}
+\begin{matrix}
+e_{k}^{-} \equiv x_k - \hat{x}_{k}^{-} 
+\\ e \\ 
+e_{k} \equiv x_k - \hat{x}_{k}
+\end{matrix}\nonumber
+\end{equation}
+
+Na Equação (\ref{eq:xk}) observa-se que o estado {\it{posteriori}} é uma combinação 
+linear do estado {\it{priori}} com um balanceamento entre a atual medida $z_k$ e a
+predição $H \hat{x}_{k}^{-}$.
+
+\begin{equation}
+\hat{x}_k = \hat{x}_{k}^{-}+K(z_k -H\hat{x}_{k}^{-})
+\label{eq:xk}
+\end{equation}
+
+O ganho $K$ é escolhido a fim de minimizar o erro da covariância do estado 
+{\it{posteriori}}. Um dos possíveis valores que minimiza este critério pode ser
+observado em (\ref{eq:k_posteriori}).
+
+\begin{equation}
+K_k=P_{k}^{-}H'(HP_{k}^{-}H'+R)^{-1}
+\label{eq:k_posteriori}
+\end{equation}
+
+%===============================================================================
+\subsection{Algoritmo}
+
+O filtro de Kalman utiliza realimentação para estimar os valores dos estados:
+Ele estima o estado do processo em um determinado tempo e então obtém a realimentação 
+o valor medido (podendo haver ruido). Desta forma o filtro pode ser dividido em duas
+partes principais: Equações de tempo e equações de medida. As equações de tempo tem
+como finalidade a projeção (em questões de tempo) o estado atual e a covariância 
+para obter a {\it{priori}} estimação para o próximo passo. As equações de medida 
+são responsáveis pela realimentação, adicionando algumas medidas ao estado {\it{a priori}} 
+para obter um estado {\it{a posteriori}} mais acurado. Este procedimento pode ser observado
+na Figura (\ref{fig:kalman_cicle}).
+
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=0.60\columnwidth]{figures/kalman_alg.eps}
+	\caption{Ciclo de funcionamento do filtro de Kalman. \cite{welch_bishop}}
+	\label{fig:kalman_cicle}
+\end{figure}
+
+Nas Equações (\ref{eq:time_update1}) e (\ref{eq:time_update2}) podem ser observadas as 
+equações referentes a etapa de Time Update e as equações de Measurement Update são apresentadas
+em (\ref{eq:k_posteriori}), (\ref{eq:xk}) e (\ref{eq:measurement_update}).
+
+\begin{equation}
+	\hat{x}_{k}^{-}=A\hat{x}_{k-1} + Bu_{k-1}
+	\label{eq:time_update1}
+\end{equation}
+
+\begin{equation}
+	P_{k}^{-}=AP_{k-1}A'+Q
+	\label{eq:time_update2}
+\end{equation}
+
+\begin{equation}
+	P_k = (I - K_k H)P_k^{-}
+	\label{eq:measurement_update}
+\end{equation}
+
+Na atual implementação do filtro a medida da covariância do ruido ($R$) é algo factível
+na pratica pois é necessário medir o processo de qualquer forma. Desta forma algumas
+medidas off-line são necessárias para se conhecer esta covariância do ruido.
+
+A determinação do ruido de covariância do processo ($Q$) é geralmente mais difícil de ser
+estimado, já que usualmente não temos a possibilidade de observar todo o sistema. Em alguns
+cados uma estimativa pobre para esta variável pode trazer resultados satisfatórios.
+
+Independentemente de ser possível a medida apurada para ambas as variáveis, é possível que
+seja feito uma sintonia para estas variáveis utilizando outro filtro de Kalman para tanto.
+Esta etapa que normalmente é feita off-line é chamada de Identificação do sistema {\it{(System
+Identification)}}.
+
+%===============================================================================
+\subsection{Extended Kalman Filter - EKF}
+
+O filtro de Kalman descrito até aqui faz referência a uma estimativa do estado $x \in \Re^n$
+de tempo discreto regida por uma equação diferencial estocástica {\it{linear}}.
+No caso desta linearidade não ser verdadeira, é uma das mais interessantes aplicações do
+filtro. Neste caso, conhecido como {\it{Filtro de Kalman Estendido - EKF}}.
+
+Utilizando a serie de Taylor é possível linearizar em torno de um ponto de operação, por
+meio de derivadas parciais uma função não linear.
+
+Assume-se que o sistema é regido por uma equação não linear (\ref{eq:kalman_non_linear}).
+
+\begin{equation}
+	x_k = f(x_{k-1}, u_{k-1}, w_{k-1})
+	\label{eq:kalman_non_linear}
+\end{equation}
+
+\begin{equation}
+	z_k = h(x_{k}, \nu_{k})
+	\label{eq:kalman_non_linear_out}
+\end{equation}
+
+Na pratica não há necessidade de se saber os valores de $ w_k$ e $\nu_k$ em cada amostra.
+Pode-se aproximar estas equações sem este valor:
+
+\begin{equation}
+	\tilde{x}_k = f(\hat{x}_{k-1}, u_{k-1}, 0)\nonumber
+\end{equation}
+
+\begin{equation}
+	\tilde{z}_k = h(\tilde{x}_{k}, 0)\nonumber
+\end{equation}
+
+Onde $\hat{x}_k$ pode ser definido pela equação (\ref{eq:x_hat_ekf}), que é uma
+aproximação {\it{a posteriori}} do estado, baseado na amostra anterior.
+
+\begin{equation}
+	\hat{x}_k = \tilde{x}_k +K(z_k - \tilde{z}_k)
+	\label{eq:x_hat_ekf}
+\end{equation}
+
+A lista completa de equações para o Filtro de Kalman Estendido é apresentado
+nas equações (\ref{eq:ekf_tu1}) e (\ref{eq:ekf_tu2}) para a
+etapa de time update e as equações (\ref{eq:ekf_mu1}) e(\ref{eq:ekf_mu2}) (\ref{eq:ekf_mu3})
+para a etapa de measurement update.
+
+\begin{equation}
+	\hat{x}_K^-=f(\hat{x}_{k-1}, u_{k-1}, 0)
+	\label{eq:ekf_tu1}
+\end{equation}
+
+\begin{equation}
+	P_k^- = A_k P_{k-1}A_k' + W_k Q_{k-1}W_k'
+	\label{eq:ekf_tu2}
+\end{equation}
+
+\begin{equation}
+	K_k=P_k^- H_k'(H_k P_k^- H_k' + V_k R_k V_K')^{-1}
+	\label{eq:ekf_mu1}
+\end{equation}
+
+\begin{equation}
+	\hat{x}_k= \hat{x}_k^- + K_k (z_k -h(\hat{x}_k^-, 0))
+	\label{eq:ekf_mu2}
+\end{equation}
+
+\begin{equation}
+	P_k = (I-K_k H_k)P_k^-
+	\label{eq:ekf_mu3}
+\end{equation}
+
+Onde $H_k$ e $V_k$ são as matrizes jacobianas das medidas na iteração k. 
+%===============================================================================
+\subsection{Propriedade da Separação - LQG e LQR}
+
+{\bf{Principio da separação}}: O problema de LQG ótimo pode ser resolvido separadamente
+resolvendo-se o problema de estimativa ótima e o problema de controle determinístico 
+da certeza equivalente. \cite{lq_control_dorato}
+
+O principio da separação demonstra que o problema de LQG pode ser reduzido para a solução 
+de duas equações de Riccati desacopladas (\ref{eq:sep_riccati_1}) e (\ref{eq:sep_riccati_2}).
+O compensador neste caso é dinâmico e de ordem igual a ordem da planta original.
+
+\begin{equation}
+	0=AS+SA'+\Xi-SC'\Theta^{-1}CS
+	\label{eq:sep_riccati_1}
+\end{equation}
+
+\begin{equation}
+	0=A'P + PA + Q - PBR^{-1}B'P
+	\label{eq:sep_riccati_2}
+\end{equation}
+
+O controlador final do LQG pode ser realizado de duas maneiras: Uma delas é separadamente
+implementar um filtro de Kalman-Bucy \cite{kalman_bucy}, gerando $\hat{x}$ e multiplicando 
+a saída do filtro de Kalman-Bucy por $-k_c$ para gerar a entrada do controlador $u=-k_c\hat{x}$.
+Esta realização é conhecida como {\it{realização de estimação}}. Na Figura (\ref{fig:kalman_bucy_filter})
+observa-se esta realização. Esta abordagem tem a vantagem de ter um compensador sempre estável
+pois o filtro de Kaman-Bucy é sempre estável. A desvantagem no entanto é de ser necessário a 
+medida da entrada do controlador $ u$. \cite{lq_control_dorato}
+
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=0.90\columnwidth]{figures/kalman_bucy_filter.eps}
+	\caption{Realização de estimação por realimentação}
+	\label{fig:kalman_bucy_filter}
+\end{figure}
+
+Uma outra maneira de realizar este compensador é calculando uma matriz de realimentação equivalente
+dita $F(s)$ a partir da saída $y$ para a entrada $u$. Esta realização é conhecida como
+{\it{Realização em cascata}}. Na Figura (\ref{fig:cascade_realization}) é possível observar a 
+estrutura desta realização. Se $u=-K_c\hat{x}$ for substituído em (\ref{eq:kalman_bucy_state}) 
+obtemos (\ref{eq:kalman_bucy_cascade}).
+
+\begin{equation}
+	\frac{\mathrm{d} \hat{x}}{\mathrm{d} t}=A\hat{x}+Bu+K_f(y-C\hat{x})
+\label{eq:kalman_bucy_state}
+\end{equation}
+
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=0.90\columnwidth]{figures/cascade_realization.eps}
+	\caption{Realizacão em cascata}
+	\label{fig:cascade_realization}
+\end{figure}
+
+\begin{equation}
+	\frac{\mathrm{d} \hat{x}}{\mathrm{d} t}=(A-BK_c -K_fC)\hat{x}+K_f y
+\label{eq:kalman_bucy_cascade}
+\end{equation}
+
+A função de transferência de $y$ para $-u$ pode ser escrita como:
+
+\begin{equation}
+	F(s)=K_c(sI-A+BK_c+K_fC)^{-1} K_f\nonumber
+\end{equation}
+
+Por conveniência a função transferência na forma 
+
+\begin{equation}
+	F(s)=C_f(sI-A_f)^{-1} B_f+D_f\nonumber
+\end{equation}
+
+É escrita:
+
+\begin{equation}
+F(s)\equiv \begin{bmatrix}
+A_f & B_f\\ 
+C_f & D_f
+\end{bmatrix}\nonumber
+\end{equation}
+
+O espaço d estado da realização em cascata pode ser escrito como:
+
+\begin{equation}
+F(s)\equiv \begin{bmatrix}
+A-BK_c-K_fC & K_f \\ 
+K_c & 0
+\end{bmatrix}\nonumber
+\end{equation}
+
+Enquanto que $(A-BK_c)$ e $(A-K_fC)$ são ambas matrizes estáveis, a matriz $(A-BK_c-K_fC)$
+não é necessariamente estável, então para alguns tipos de problemas, mesmo com uma
+planta estável, a realização em cascata irá requerer um compensador instável. Esta é
+a desvantagem da realização em cascata. \cite{lq_control_dorato}
+
+O valor da medida de performance minimo é calculado por:
+
+\begin{equation}
+V^{*}=tr\left \{ P K_f \Theta K_f' \right \}+ \left \{ SQ \right \}\nonumber
+\end{equation}
+
+Onde $K_f=SC'\Theta^{-1}$ e P satisfaz a Equação (\ref{eq:sep_riccati_2}) e S satisfaz
+a Equação (\ref{eq:sep_riccati_1}).
+
+

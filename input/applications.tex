@@ -1,0 +1,106 @@
+%===============================================================================
+\section{Aplicações praticas}
+\label{sec:applications}
+
+O filtro de Kalman tem uma longa aplicabilidade. Diversas atividades usam ou ate
+mesmo dependem dele para seu funcionamento. Abaixo algumas destas aplicações:
+
+\begin{itemize}
+\item Heading Reference Systems
+\item Piloto automático
+\item estimativa de estado de carga de baterias (SoC)
+\item interface cérebro - computador
+\item Sinais Caóticos
+\item Posicionamento dinâmico
+\item Economia, em particular macroeconomia, series temporais e econometria
+\item sistema de orientação por inercia
+\item Radar tracker 
+\item sistemas de navegação por satélite
+\item Localização e mapeamento simultâneos
+\item Previsão do tempo
+\item Sistemas de Navegação
+\item Modelagem 3D
+\item Visão computacional
+\item Robótica móvel
+\end{itemize}
+
+
+Nesta sessão faremos uma pequena introdução no que diz respeito a dois destes itens
+e uma ideia de como o filtro de Kalman a utilizado. Os tópicos abordados serão:
+Visão computacional (\ref{sec:visao_computacional}) e Robótica móvel (\ref{sec:robotica_movel}).
+
+%===============================================================================
+\subsection{Visão computacional}
+\label{sec:visao_computacional}
+
+Sistemas de visão para localização utilizando filtros de Kalman encontram um ponto de aplicação
+bem vasto no quesito de movimentação de robôs em ambientes variados e dinâmicos.
+Existem pesquisas nesta área (\cite{zhang_zeng}) para Robôs moveis autónomos 
+(autonomous mobile robot -AMR) em ambientes dinâmicos e incertos. Primeiramente para
+obter uma força repulsiva aos obstáculos, sonares são utilizados para determinar 
+o posicionamento dos obstáculos. O Filtro de Kalman a utilizado para eliminar ruido destes
+sonares alam do ruido ambiente onde o robô esta imerso.
+
+Devido aos distúrbios do ambiente, os sinais do sonar são normalmente instável. Para
+eliminar os distúrbios e ruídos do ambiente é utilizado um filtro de Kalman com 
+as seguintes vantagens principais:
+
+\begin{itemize}
+\item Sinais de erro de mínimos quadráticos de estimação são obtidos usando computação
+recursivo, desta forma é rápido e conveniente para processamento de tempo-real.
+\item Um filtro de Kalman estável é utilizado para processar sinais instáveis. Desta
+forma o método pode aceitar estes dados dos sonares e garantir uma baixa taxa de ruido.
+\cite{zhang_zeng}
+\end{itemize}
+
+
+%===============================================================================
+\subsection{Robótica Móvel}
+\label{sec:robotica_movel}
+
+Um Robô móvel pode ser compreendido como robôs que podem movimentar-se autonomamente
+no solo ou no espaço. Um robô a um manipulador multifuncional reprogramável
+projetado para movimentar materiais, ferramentas ou dispositivos especiais
+seguindo movimentos programados variáveis, tendo por objetivo a realização de
+tarefas variadas
+
+Para a simulação do robô podemos considerar o sistema (\ref{eq:robo_model}). 
+\cite{armando_sousa}
+
+\begin{equation}
+\frac{\mathrm{d} }{\mathrm{d} t}
+\begin{bmatrix}
+x(t)\\ 
+y(t)\\ 
+\theta(t)
+\end{bmatrix} = 
+\begin{bmatrix}
+v(t)cos(\theta(t))\\ 
+v(t)sin(\theta(t))\\ 
+\omega(t)
+\end{bmatrix}
+	\label{eq:robo_model}
+\end{equation}
+
+Que pode ser melhor entendido pela Figura (\ref{fig:robo_model}).
+
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=0.80\columnwidth]{figures/robo_model.eps}
+	\caption{Representação gráfica do estado do Robô. \cite{armando_sousa}}
+	\label{fig:robo_model}
+\end{figure}
+
+Sendo o modelo da cinemática do Robot dado pela equação (\ref{eq:robo_model})
+e considerando-se que os sinais de controle são constantes entre cada instante de
+amostragem, podemos escrever a equação de propagação do estado como:
+
+\begin{equation}
+\frac{\mathrm{d} X(t)}{\mathrm{d} t}=f(X(t), u(t_k), t) , t \in ]t_k, t_k+1] \nonumber
+\end{equation}
+
+Sendo $ u(t)=\begin{bmatrix} v(t) & \omega(t) \end{bmatrix}'$
+
+Desta maneira a possível iniciar o algoritmo do filtro de Kalman. Maiores detalhes podem
+ser obtidos em \cite{armando_sousa}.
+

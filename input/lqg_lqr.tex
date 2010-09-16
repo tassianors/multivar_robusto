@@ -1,0 +1,138 @@
+%===============================================================================
+\section{LQR e LQG em tempo discreto}
+\label{sec:lqg_lqr}
+
+%===============================================================================
+\subsection{LQR para sistemas de tempo discreto}
+
+Para o problema de LQR discreto iremos considerar o valor que o controlador provê
+um valor constante entre duas amostras de tempo ({\it{Zero-order Hold}}). E o sistema
+pode ser considerado como em (\ref{eq:lqr_discrate_sys}).\cite{lq_control_dorato}
+
+\begin{equation}
+	\dot{x}=\tilde{A}x+\tilde{B}u
+	\label{eq:lqr_discrate_sys}
+\end{equation}
+
+Usaremos $T$ como o período de amostragem (tempo em que o valor na saída do controlador
+é mantido constante) e $k$ é um inteiro onde $kT$ será o tempo em que o valor continuo
+será amostrado.
+
+O objetivo do controle discreto é que seja gerada uma entrada $u_k$ tal que o sistema 
+em tempo continuo seja minimizado pela performance em (\ref{eq:lqr_v}).
+
+\begin{equation}
+V=\int_{t}^{t_f}(x'\tilde{Q}x+u'\tilde{R}u)d\tau+x'(t_f)Sx(t_f)
+	\label{eq:lqr_v}
+\end{equation}
+
+Temos que:
+
+\begin{equation}
+x(t)= \Phi(t,kT)x_k+\int_{kT}^{t}\Phi(t,\tau)\tilde{B}u_k d\tau, \; kT \leq t \leq (k+1)T
+	\label{eq:lqr_disc_x}
+\end{equation}
+
+\begin{equation}
+x_{k+1}=A_k x_k+B_k u_k
+	\label{eq:lqr_disc_x}
+\end{equation}
+
+Onde:
+\begin{equation}
+A_k=\Phi((k+1)T, kT)\nonumber
+\end{equation}
+
+\begin{equation}
+B_k=\int_{kT}^{(k+1)T}\Phi((k+1), \tau)\tilde{B} d\tau \nonumber
+\end{equation}
+
+A partir de (\ref{eq:lqr_v}) temos (\ref{eq:lqr_disc}).
+
+\begin{equation}
+\int_{kT}^{(k+1)T}(x'\tilde{Q}x+u'\tilde{R}u)d\tau=x_k'Q_k x_k+2u_k'M_k x_k + u_k'R_k u_k
+	\label{eq:lqr_disc}
+\end{equation}
+
+Onde:
+
+\begin{equation}
+Q_k=\int_{kT}^{(k+1)T}\Phi'(\tau, kT)\tilde{Q}\Phi(\tau, kT) \; d\tau
+\nonumber
+\end{equation}
+
+\begin{equation}
+M_k=\int_{kT}^{(k+1)T} H_k'(\tau)\tilde{Q}\Phi(\tau, kT) \; d\tau
+\nonumber
+\end{equation}
+
+\begin{equation}
+R_k=\int_{kT}^{(k+1)T} [\tilde{R}+H_k'(\tau)\tilde{Q}H_k(\tau)] \; d\tau
+\nonumber
+\end{equation}
+
+\begin{equation}
+H_k=\int_{kT}^{\tau}\Phi(\tau, \alpha)\tilde{B} \; d\alpha
+\nonumber
+\end{equation}
+
+Podemos então re escrever a performance quadrática dada em (\ref{eq:lqr_v}) por
+(\ref{eq:lqr_v_disc}).
+
+\begin{equation}
+V(x_i,i)=\sum_{k=i}^{N-1}l(x_k, u_k, k)\; +x_N'Sx_N
+\label{eq:lqr_v_disc}
+\end{equation}
+
+Onde $t_f=NT$ e:
+
+\begin{equation}
+l(x, u, k)=x'Q_k x + 2u' M_k x + u' R_k u
+\nonumber
+\end{equation}
+
+%===============================================================================
+\subsubsection{Otimização LQR de tempo discreto}
+
+Baseado em (\ref{eq:lqr_v_disc}) e a dinâmica descrita em (\ref{eq:lqr_disc_x},
+e utilizando o principio da otimalidade temos que o valor ótimo para o estado $x_N$
+é dado por (\ref{eq:lqr_v_optimal}).\cite{lq_control_dorato}
+
+\begin{equation}
+V^{*}(x_N,N)=x_N'Sx_N
+\label{eq:lqr_v_optimal}
+\end{equation}
+
+O problema a ser minimizado é o apresentado abaixo:
+
+\begin{equation}
+\begin{matrix}
+x_i'P_i x_i &= \underset{u_i}{min}[x_i'Q x_i+2u_i M x_i+u_i'R u_i \\ 
+ & + (Ax_i+Bu_i)' P_{i+1}(Ax_i+Bu_i)
+\end{matrix}\nonumber
+\end{equation}
+
+Dizemos que o valor de $u_i$ que coloca o sistema no ponto de valor ótimo 
+é $u_i^* = -K_i x_i$, onde:
+
+\begin{equation}
+K_i=(R+B'P_{i+1}A)^{-1}(B'P_{i+1}A+M)
+\label{eq:lqr_k_optimal}
+\end{equation}
+
+Obtemos então a solução da equação de Riccati para tempo discreto:
+
+\begin{equation}
+\begin{matrix}
+P_i= & (Q+A'P_{i+1}A) \\ 
+ & -(M+B'P_{i+1}A)'(R+B'P_{i+1}B)^{-1}(M+B'P_{i+1}A)
+\end{matrix}
+\end{equation}
+
+Onde $P_N=S$.\cite{lq_control_dorato}
+
+
+%===============================================================================
+%\subsection{Problema de filtragem ótima no caso discreto}
+
+%===============================================================================
