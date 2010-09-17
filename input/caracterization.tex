@@ -1,20 +1,149 @@
 \section{Caracterização}
 \label{sec:caracterization}
 
+As incertezas presentes em um modelo matemático podem ter diversas origens:
+
+\begin{itemize}
+\item As variações paramétricas lentas e continuas devido ao envelhecimento
+de certos elementos físicos, ou bruscas devido a mudança no ponto de operação.
+
+\item Erro de estimativa nos parâmetros do modelo
+
+\item Hipóteses simplificarias na modelagem do sistema e/ou dinâmicas negligenciadas
+para redução do modelo.
+\end{itemize}
+
+As incertezas são classificadas da seguinte forma:
+
+\begin{itemize}
+\item {\bf{Paramétricas}}: Devido as variações ou desconhecimento de certos valores
+físicos do sistema. Ex: Massa, temperatura ...
+
+\item {\bf{Não Paramétricas}}: Devido a dinâmicas desconhecidas ou não identificadas
+no procedimento de identificação do sistema.
+
+\item {\bf{Estruturais}}: Aquelas sobre as quais tem-se uma informação precisa sobre 
+a maneira que elas agem sobre o sistema.
+
+\item {\bf{Não Estruturais}}: São aquelas onde a única informação é o limite superior
+de sua norma.
+\end{itemize}
+
+O sistema sujeito as incertezas referiadas anteriormente podem ser representados na forma
+de Equações de estados como em {\ref{eq:model_sistem}
+
+\begin{equation}
+\left \{ \begin{matrix}
+\dot{x}(t)=Ax(t)+Bu(t) & A \in \mathbf{A}\\ 
+y(t)=Cx(t) & B \in \mathbf{B}
+\end{matrix} \right.
+\label{eq:model_sistem}
+\end{equation}
+
+Onde $ \mathbf{A} e \mathbf{B}$ é o conjunto de parâmetros que são formados pelas
+variações das incertezas dos parâmetros.
+
+Nas seções seguintes será apresentado a modelagem para os tipos de incertezas.
+
 %===============================================================================
 \subsection{Politópica}
 \label{sec:carac_politopica}
 
+Uma incerteza é dita do tipo politópicas se $ \mathbf{A} e \mathbf{B}$ tem as estruturas
+seguintes:
+
+\begin{equation}
+\mathbf{A}_p \equiv {A: A \in \mathbf{Co}(A_i); i=1,...,na}
+\nonumber
+\end{equation}
+
+\begin{equation}
+\mathbf{B}_p \equiv {B: B \in \mathbf{Co}(B_j); j=1,...,nb}
+\nonumber
+\end{equation}
+
+Onde $\mathbf{Ca}$ é um envelope convexo, ou seja, uma combinação linear convexa.
+
+De forma equivalente temos que um sistema de incertezas do tipo politópicas podem 
+ser representados por (\ref{eq:carac_politopico}.
+
+\begin{equation}
+\mathbf{A}_p \equiv {A: A = \sum_{i=1}^{na}\alpha_i(t)A_i;\alpha_i\geq 0;\sum_{i=1}^{na}\alpha_i(t)=1; \forall t\geq  0}
+\label{eq:carac_politopico}
+\end{equation}
+
+As incertezas politópicas são consideradas {\it{estruturais}} pois pode-se facilmente
+estimar as variações admitidas para cada elemento das matrizes que definem o conjunto
+de modelos.
+
 %===============================================================================
-\subsection{Limitada em norma} 
+\subsection{Limitada em norma}
 \label{sec:carac_limit_norma}
+
+Incertezas limitadas em norma possuem a seguinte estrutura:
+
+\begin{equation}
+\mathbf{A}(\Delta(t))\equiv \{A: A=A_0+\Delta A+D \Delta (t)E_A\}
+\label{eq:carac_limit_norma_a}
+\end{equation}
+
+\begin{equation}
+\mathbf{B}(\Delta(t))\equiv \{B: B=B_0+\Delta B+D \Delta (t)E_B\}
+\label{eq:carac_limit_norma_b}
+\end{equation}
+
+Com $ \left \| \Delta (t) \right \| \leq 1$.
+
+De maneira equivalente o sistema de equacões de estado fica como em (\ref{eq:carac_lim_norma_sis}).
+
+\begin{equation}
+\left\{\begin{matrix}
+\dot{x}(t)=A_0x(t)+B_0u(t)+Dp(t)
+\\ 
+q(t)=E_Ax(t)+E_Bu(t)\\ 
+p(t)= \Delta (t)q(t)
+\end{matrix}\right.
+\label{eq:carac_lim_norma_sis}
+\end{equation}
+
+O sistema apresentado em (\ref{eq:carac_lim_norma_sis} pode ser melhor interpretado pela
+Figura (\ref{fig:carac_sist}).
+
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=0.60\columnwidth]{figures/carac_sis.eps}
+	\caption{Sistema na forma LFT ({\it{Linear Fractional Transformation}}}
+	\label{fig:carac_sist}
+\end{figure}
+
+De forma bem simplificada a matriz $A_0$ pode ser vista como a média das perturbacões e
+a matriz $E_A$ é a aplitude da incerteza sobre cada parametro.
+
+Na literatura a matriz $ \Delta(t)$ designa um bloco de incertezas {\it{não estruturais}}.
 
 %===============================================================================
 \subsection{Diagonais}
 \label{sec:carac_diagonais}
 
+As incertezas diagonais podem ser definidas como em (\ref{eq:carac_limit_norma_a}) e 
+(\ref{eq:carac_limit_norma_b}) com a diferenca de que o valor de $\Delta (t)$ segue
+a definicão abaixo:
+
+\begin{equation}
+\Delta (t)'\Delta (t) \leq I
+\nonumber
+\end{equation}
+
+Onde:
+
+\begin{equation}
+\Delta(t)=diag(\delta_i(t)); i=1,...,ni
+\nonumber
+\end{equation}
+
+A matriz $\Delta(t)$ é uma matriz quadrada de ordem $ni$.
 %===============================================================================
-\subsection{Elemento a elemento}
-\label{sec:carac_elemento}
+%\subsection{Elemento a elemento}
+%\label{sec:carac_elemento}
 
 
