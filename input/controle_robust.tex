@@ -1,0 +1,95 @@
+\section{Controle Robusto}
+\label{sec:robust}
+%===============================================================================
+
+Nas seções seguintes será apresentado a modelagem para os tipos de incertezas.
+Utilizando o sistema descrito em (\ref{eq:intro_sis}) e os limites das incertezas
+descritos em (\ref{eq:intro_limit}), será apresentada a modelagem baseado em cada
+um dos tipos apresentados a seguir.
+
+%===============================================================================
+\subsubsection{Estabilidade quadrática}
+\label{sec:robust_quadratic}
+
+A idéia fundamental da estabilização quadrática de um sistema incerto autónomo 
+por realimentação linear estática de estados é encontrar uma lei de controle tal
+que a função quadrática definida positiva:
+
+\begin{equation}
+V(x)=x'Px com P>0
+\nonumber
+\end{equation}
+
+Possua sua derivada definida negativa ao longo da trajetória do sistema em malha fechada:
+
+\begin{equation}
+\dot{V}(x)=x'\{(A-BK)'P+P(A-BK)\}x < 0; \forall A \in \mathbf{A}, \forall B \in \mathbf{B}
+\nonumber
+\end{equation}
+
+Desta forma o que busca-se é uma matriz $P$ que satisfaça não apenas uma equação mas
+um grupo de equações para estabilizar o sistema de forma Robusta.
+
+Para um sistema sem incertezas tem-se que a solução do problema é como abaixo:
+
+\begin{equation}
+P=W^{-1}; K=RW^{-1}
+\nonumber
+\end{equation}
+
+Para o sistema abaixo com $R\equiv KP^{-1}$.
+
+\begin{equation}
+WA_0'+A_0W -B_0R-R'B_0 < 0
+\nonumber
+\end{equation}
+
+%===============================================================================
+\subsection{Politópica}
+\label{sec:robust_politopica}
+
+Para o caso de incertezas do tipo politópico uma condição necessária e suficiente para a
+estabilidade quadrática do sistema incerto autónomo em malha fechada é que todos os vértices
+do poliedro que constituem o conjunto de modelos possuam a mesma matriz $P$ simétrica
+definida positiva como matriz de Lyapunov.
+
+\begin{equation}
+WA_i'+A_iW-B_jR-R'B_j'< 0
+\label{eq:robust_politopico}
+\end{equation}
+
+Para $\forall i=1,...,na, \forall j=1,...,nb$.
+
+O sistema utilizado neste trabalho (\ref{eq:intro_sis}) é caracterizado utilizando a
+forma politópica como em (\ref{eq:carac_sis_politopico}).
+
+\begin{equation}
+\begin{matrix}
+A_1=\begin{bmatrix}
+0 & 1\\ 
+-ba_1 &a_1+b 
+\end{bmatrix} \; A_2=\begin{bmatrix}
+0 & 1 \\ 
+-ba_2 & a_2+b 
+\end{bmatrix}
+\\ \; & \; \\
+B_1=\begin{bmatrix}
+0\\ 
+k_1
+\end{bmatrix}B_2=\begin{bmatrix}
+0\\ 
+k_2
+\end{bmatrix}
+\end{matrix}
+\label{eq:carac_sis_politopico}
+\end{equation}
+
+%===============================================================================
+\subsection{Limitada em norma}
+\label{sec:carac_limit_norma}
+
+%===============================================================================
+\subsection{Diagonais}
+\label{sec:carac_diagonais}
+
+
