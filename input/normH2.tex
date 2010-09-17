@@ -2,4 +2,42 @@
 \section{Minimizacão da norma H2}
 \label{sec:normH2}
 
+Considerando o sistema apresentado em (\ref{eq:robust_sis_incert}) em malha fechada
+com $\Delta \equiv 0$ e condicão inicial nula. Um critério normalmente utilizado 
+é a norma $H_2$ da funcão de transferência entre a entrada das perturbacões $\omega$
+e a saída $z$. A norma $H_2$ pode ser calculada como em (\ref{eq:normh2_def}).
 
+\begin{equation}
+\left \| T(s) \right \|_2 \equiv \gamma _2=\sqrt{Tr(B_{\omega}'P_o B_{\omega})}
+\label{eq:normh2_def}
+\end{equation}
+
+Onde :
+
+\begin{equation}
+P_o=\int_{0}^{\infty}((G-HK))e^{(A_0-BK)}B_{\omega})'((G-HK))e^{(A_0-BK)}B_{\omega})dt
+\nonumber
+\end{equation}
+
+{\it{Interpretacão estocástica da norma $H_2$}}: Se considerarmos $\omega(t)$ como sendo 
+ruido branco, então a norma $H_2$ de $T(s)$ é o valor da variância assintótica da saída $z(t)$:
+
+\begin{equation}
+\left \| T(s) \right \|_2=\sqrt{\lim_{t\rightarrow \infty}E(z(t)'z(t))}
+\nonumber
+\end{equation}
+
+{\it{Interpretacão deterministica da norma $H_2$}}: Dá a idéia da energia da saída $z(t)$ 
+em resposta as condicões iniciais nulas.
+
+\begin{equation}
+\int_{0}^{\infty}z(t)'z(t)dt=x_0'P_o x_0
+\nonumber
+\end{equation}
+
+Assim tendo que a norma pode ser apresentada como a seguir:
+
+\begin{equation}
+\left \| T(s) \right \|_2=\sqrt{\sum_{i=1}^{n_w} \int_{0}^{\infty}\left \| z^{i}(t) \right \|^2 dt}
+\nonumber
+\end{equation}

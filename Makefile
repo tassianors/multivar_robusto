@@ -2,7 +2,7 @@ FILE=relat
 FILETEX=$(FILE).tex
 FILEDVI=$(FILE).dvi
 FILEBIB=$(FILE).aux
-OUTPUT=Output/multivariaveis_trab6.pdf
+OUTPUT=Output/multivariaveis_robusto.pdf
 
 .PHONY: clean bib pdf
 
