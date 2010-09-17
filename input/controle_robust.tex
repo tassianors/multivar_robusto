@@ -11,12 +11,12 @@ um dos tipos apresentados a seguir.
 \subsubsection{Estabilidade quadrática}
 \label{sec:robust_quadratic}
 
-A idéia fundamental da estabilização quadrática de um sistema incerto autónomo 
+A ideia fundamental da estabilização quadrática de um sistema incerto autónomo 
 por realimentação linear estática de estados é encontrar uma lei de controle tal
 que a função quadrática definida positiva:
 
 \begin{equation}
-V(x)=x'Px com P>0
+V(x)=x'Px; \; com P>0
 \nonumber
 \end{equation}
 
@@ -84,9 +84,99 @@ k_2
 \label{eq:carac_sis_politopico}
 \end{equation}
 
+A partir de (\ref{eq:robust_politopico}) tem-se o conjunto de inequações lineares apresentado
+em (\ref{eq:robust_politopico_equations}).
+
+\begin{equation}
+\begin{matrix}
+WA_1'+A_1W-B_1R-R'B_1'<0\\ 
+WA_1'+A_1W-B_2R-R'B_2'<0\\ 
+WA_2'+A_2W-B_1R-R'B_1'<0\\ 
+WA_2'+A_2W-B_2R-R'B_2'<0
+\end{matrix}
+\label{eq:robust_politopico_equations}
+\end{equation}
+
 %===============================================================================
 \subsection{Limitada em norma}
 \label{sec:carac_limit_norma}
+
+Considerando o sistema apresentado em (\ref{eq:robust_sis_incert}) com $\omega(t) \equiv 0$.
+
+\begin{equation}
+\left\{\begin{matrix}
+\dot{x}(t)=A_0x(t)+B_0u(t)B_{\omega}\omega(t)+Dp(t)
+\\ 
+q(t)=E_Ax(t)+E_Bu(t)+Fp(t)
+\\ 
+z(t)=Gx(t)+Hu(t)
+\\
+p(t)=\Delta(t)q(t); \; \left \| \Delta(t) \right \| \leq 1
+\end{matrix}\right.
+\label{eq:robust_sis_incert}
+\end{equation}
+
+Para este sistema temos que a derivada da função $V(x)=x'Px$ seja definida positiva:
+
+\begin{equation}
+x'-(A_0-B_0 K)'P-P(A_0-B_0 K)x-x'PDp-p'D'Px < 0
+\nonumber
+\end{equation}
+
+Para todo $x \neq 0$ tal que $p'p \leq q'q$ implica de maneira equivalente:
+
+\begin{equation}
+p'p \leq ((E_A-E_B K)x)'(E_A-E_B K)x
+\nonumber
+\end{equation}
+
+Tem-se então que o sistema apresentado em (\ref{eq:robust_limit_norma}) é uma condição
+necessária e suficiente para a estabilidade quadrática do sistema com incertezas limitadas
+em norma e também é convexa, portanto pode ser resolvida com algoritmos de resolução de LMI.
+
+\begin{equation}
+\begin{bmatrix}
+-A_0+B_0R-WA_0'+R'B_0'-DD' & -(WE_A+RE_B')\\ 
+-(WE_A'+R'E_B')' & I
+\end{bmatrix}>0
+\label{eq:robust_limit_norma}
+\end{equation}
+
+Desta forma para o sistema (\ref{eq:intro_sis}) temos que a modelagem para incertezas limitadas
+em norma é a apresentada em (\ref{eq:robust_sis_limit}).
+
+\begin{equation}
+\begin{matrix}
+
+A_0=\begin{bmatrix}
+0 & 1\\ 
+-b(a_1+a_2)/2 & b+(a_1+a_2)/2
+\end{bmatrix} 
+\\
+\;
+\\
+B_0=\begin{bmatrix}
+0\\ 
+(k_1+k_2)/2
+\end{bmatrix}
+\\
+\; 
+\\
+E_A=\begin{bmatrix}
+(a_1-a_2)/2 & 0\\ 
+0 & (a_1-a_2)/2
+\end{bmatrix} 
+\\
+\;
+\\
+D=\begin{bmatrix}
+0 & 0\\ 
+1 & 1
+\end{bmatrix} 
+\end{matrix}
+\label{eq:robust_sis_limit}
+\end{equation}
+
 
 %===============================================================================
 \subsection{Diagonais}
