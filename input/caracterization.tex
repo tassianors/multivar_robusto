@@ -143,7 +143,67 @@ Onde:
 
 A matriz $\Delta(t)$ é uma matriz quadrada de ordem $ni$.
 %===============================================================================
-%\subsection{Elemento a elemento}
-%\label{sec:carac_elemento}
+\subsection{Elemento a elemento}
+\label{sec:carac_elemento}
 
+As incertezas de um sistema são elementares se  $ \mathbf{A} e \mathbf{B}$ possuem as
+seguintes estruturas:
 
+\begin{equation}
+\begin{matrix}
+\mathbf{A}(\Delta_e (t))\equiv A: A=A_0(s)+\Delta_A = A_0+D\Delta(t)E_A\\ 
+\Delta_A(t)'\Delta_A(t) \leq I\\ \\
+\mathbf{B}(\Delta_e (t))\equiv B: B=B_0(s)+\Delta_B = B_0+D\Delta(t)E_B\\  
+\Delta_B(t)'\Delta_B(t) \leq I
+\end{matrix}
+\nonumber
+\end{equation}
+
+Onde:
+
+\begin{equation}
+\begin{matrix}
+D_A=[d_{a1}\cdots d_{Anai}]; & D_B=[d_{B1}\cdots d_{Bnbi}]\\ 
+E_A'=[e_{A1}' \cdots e_{Anai}' ]; & E_B'=[e_{B1}' \cdots e_{Bnbi}' ]\\ 
+\Delta_A(t)=diag(\delta_{A1} \cdots \delta_{Anai}); & \Delta_B(t)=diag(\delta_{B1} \cdots \delta_{Bnbi})
+\end{matrix}
+\nonumber
+\end{equation}
+
+Definindo-se 
+
+\begin{equation}
+\begin{matrix}
+\hat{D} \equiv [D_A \; D_B]\\ \\
+\hat{E}_A \equiv \begin{bmatrix}
+E_A\\ 
+0_{nbi \; x\; n }
+\end{bmatrix}\\ \\
+\hat{E}_B \equiv \begin{bmatrix}
+0_{nai \; x\; m }\\
+E_B
+\end{bmatrix}
+\end{matrix}
+\nonumber
+\end{equation}
+
+De maneira equivalente, a equação de estados do sistema pode ser escrito como em
+(\ref{eq:carac_elem_sys}).
+
+\begin{equation}
+\left\{\begin{matrix}
+\dot{x}=A_0 x(t)+B_0 u(t) +\hat{D}p(t)\\ 
+q(t)=\hat{E}_{a}x(t)+\hat{E}_{B}u(t)\\ 
+p(t)=\Delta(t)q(t)\\ 
+\Delta(t)=blocdiag(\Delta_A(t),\Delta_B(t))\\ 
+p_A(t)=\Delta_A(t)q_A(t)\\ 
+p_B(t)=\Delta_B(t)q_B(t)\\ 
+p(t)=[p_A'(t)p_B'(t)]'\\
+q(t)=[q_A'(t)q_B'(t)]' 
+\end{matrix}\right.
+\label{eq:carac_elem_sys}
+\end{equation}
+
+Na definicão acima, cada bloco de incerteza $\delta_{Ai}(t)$ e $\delta_{Bj}(t)$ é
+um escalar, cujo módulo é inferior a 1. Alem disso as matrizes $d_{Ai}$ e $d_{Bj}$
+são vetores coluna e $e_{Ai}$ e $e_{Bj}$ são vetores linha.

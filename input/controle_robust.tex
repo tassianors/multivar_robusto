@@ -150,7 +150,6 @@ em norma é a apresentada em (\ref{eq:robust_sis_limit}).
 
 \begin{equation}
 \begin{matrix}
-
 A_0=\begin{bmatrix}
 0 & 1\\ 
 -b(a_1+a_2)/2 & b+(a_1+a_2)/2
@@ -175,7 +174,14 @@ E_A=\begin{bmatrix}
 D=\begin{bmatrix}
 0 & 0\\ 
 1 & 1
-\end{bmatrix} 
+\end{bmatrix}
+\\
+\;
+\\
+E_B=\begin{bmatrix}
+0\\ 
+(k_1-k_2)/2
+\end{bmatrix}
 \end{matrix}
 \label{eq:robust_sis_limit}
 \end{equation}
@@ -185,4 +191,55 @@ D=\begin{bmatrix}
 \subsection{Diagonais}
 \label{sec:carac_diagonais}
 
+Para incertezas diagonais o sistema fica como em (\ref{eq:robust_sis_limit}).
+
+%===============================================================================
+\subsection{Elemento a elemento}
+\label{sec:carac_elemento}
+
+Para as incertezas do tipo elemento a elemento temos as seguintes definições:
+
+\begin{equation}
+\begin{matrix}
+D_A=\begin{bmatrix}
+0\\ 
+1
+\end{bmatrix}
+\\ 
+E_A=\begin{bmatrix}
+(a_1-a_2)/2 & (a_1-a_2)/2
+\end{bmatrix}
+\\ \\
+D_B=\begin{bmatrix}
+0\\ 
+1
+\end{bmatrix}\\
+E_B=[(k_1-k_2)/2]
+\end{matrix}
+\nonumber
+\end{equation}
+
+Desta forma chega-se:
+
+\begin{equation}
+\begin{matrix}
+\hat{D} = \begin{bmatrix}
+0 & 0\\ 
+1 & 1
+\end{bmatrix}\\ \\
+\hat{E}_A = \begin{bmatrix}
+(a_1-a_2)/2 & (a_1-a_2)/2\\ 
+0 & 0
+\end{bmatrix}\\ \\
+\hat{E}_B =\begin{bmatrix}
+0\\ 
+(k_1-K2)/2
+\end{bmatrix}\\ \\
+\Delta(t)=\begin{bmatrix}
+\delta_A(t) &0 \\ 
+0 & \delta_B(t)
+\end{bmatrix}
+\end{matrix}
+\nonumber
+\end{equation}
 
