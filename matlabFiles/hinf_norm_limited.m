@@ -1,5 +1,10 @@
-%Trabalho - Controle Robusto 
+%========================================
+% Sistemas Multivariáveis - UFRGS
+% Tassiano Neuhaus - tassianors@gmail.com
+% Setembro 2010
+%
 % LMIs - Hinf - Norm-Bounded
+%========================================
 
 % init
 clear all; close all;

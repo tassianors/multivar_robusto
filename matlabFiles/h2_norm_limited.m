@@ -1,5 +1,10 @@
-%Trabalho - Controle Robusto 
+%========================================
+% Sistemas Multivariáveis - UFRGS
+% Tassiano Neuhaus - tassianors@gmail.com
+% Setembro 2010
+%
 % LMIs - H2 - Norm-Bounded
+%========================================
 
 % init
 clear all;close all;
@@ -25,6 +30,7 @@ H=0;
 % get usefuul dimensions
 [n,m]=size(B0);
 
+%========================================
 % Init LMI's descriptions
 setlmis([]);
 
@@ -36,6 +42,7 @@ M=lmivar(1,[1 1]);
 
 %gamma=lmivar(1,[1,1]);
 
+%========================================
 % realtionship description
 lmi1=newlmi;
 % a11
@@ -54,14 +61,17 @@ lmiterm([-lmi1 2 2 0],1);         % I
 % A33
 lmiterm([-lmi1 3 3 0],1);         % I
 
+%========================================
 lmi2=newlmi;
 lmiterm([-lmi2 1 1 W],1,1);      % W > 0
 
+%========================================
 lmi3=newlmi;
 lmiterm([-lmi3 1 1 M],1,1);
 lmiterm([-lmi3 1 2 0],Bw');
 lmiterm([-lmi3 2 2 W],1,1);
 
+%========================================
 % finish relationship description
 nomesis = getlmis;
 
@@ -83,6 +93,7 @@ M_o=dec2mat(nomesis,gopt,M)
 % get K feedback matrix
 K=R_o*inv(W_o)
 
+%========================================
 % compare solutions
 autoA=eig(A0)
 autoABK=eig(A0-B0*K)

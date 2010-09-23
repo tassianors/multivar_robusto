@@ -3,7 +3,7 @@
 % Tassiano Neuhaus - tassianors@gmail.com
 % Setembro 2010
 %
-% LMIs - H2 - Polytopic
+% LMIs - Hinf - Polytopic
 %========================================
 
 % init
@@ -49,6 +49,7 @@ lmi1a=newlmi;
 % a11
 lmiterm([-lmi1a 1 1 W],-A1,1,'s'); % Symmetric
 lmiterm([-lmi1a 1 1 R],1,B1, 's'); % Symetric 
+lmiterm([-lmi1a 1 1 0],-Bw*Bw');
 % a12 = (G*W-H*R)'
 lmiterm([-lmi1a 1 2 W],1,G');      % W*G'
 lmiterm([-lmi1a 1 2 -R],1,-H');    % -R'*H'
@@ -62,6 +63,7 @@ lmi1b=newlmi;
 % a11
 lmiterm([-lmi1b 1 1 W],-A1,1,'s'); % Symmetric
 lmiterm([-lmi1b 1 1 R],1,B2, 's'); % Symetric 
+lmiterm([-lmi1b 1 1 0],-Bw*Bw');
 % a12 = (G*W-H*R)'
 lmiterm([-lmi1b 1 2 W],1,G');      % W*G'
 lmiterm([-lmi1b 1 2 -R],1,-H');    % -R'*H'
@@ -75,6 +77,7 @@ lmi1c=newlmi;
 % a11
 lmiterm([-lmi1c 1 1 W],-A2,1,'s'); % Symmetric
 lmiterm([-lmi1c 1 1 R],1,B1, 's'); % Symetric 
+lmiterm([-lmi1c 1 1 0],-Bw*Bw');
 % a12 = (G*W-H*R)'
 lmiterm([-lmi1c 1 2 W],1,G');      % W*G'
 lmiterm([-lmi1c 1 2 -R],1,-H');    % -R'*H'
@@ -88,6 +91,7 @@ lmi1d=newlmi;
 % a11
 lmiterm([-lmi1d 1 1 W],-A2,1,'s'); % Symmetric
 lmiterm([-lmi1d 1 1 R],1,B2, 's'); % Symetric 
+lmiterm([-lmi1d 1 1 0],-Bw*Bw');
 % a12 = (G*W-H*R)'
 lmiterm([-lmi1d 1 2 W],1,G');      % W*G'
 lmiterm([-lmi1d 1 2 -R],1,-H');    % -R'*H'
