@@ -107,8 +107,45 @@ B_{\omega} & W
 \\
 \forall j=1,...,nb
 \end{matrix}
+\label{eq:normh2_polytopic}
+\end{equation}
+%===============================================================================
+\subsubsection{Simulação}
+
+A resolução do sistema de LMIs (\ref{eq:normh2_polytopic}) gerou os seguintes resultados:
+
+\begin{equation}
+\begin{matrix}
+W=\begin{bmatrix}
+5.3185 &  -1.0406\\
+-1.0406 & 938.1095
+\end{bmatrix}\\ \\ 
+R=1.10^6\begin{bmatrix}
+0.0008 &  -1.3383
+\end{bmatrix}
+\\ \\
+K=1.10^3\begin{bmatrix}
+-0.1259 &  -1.4267
+\end{bmatrix}
+\\ \\
+M =  2.3045e-12
+\end{matrix}
 \nonumber
 \end{equation}
+
+A simulação do sistema em malha fechada com o ganho $K$ encontrado obtem a resposta
+apresentada na Figura (\ref{fig:h2_polytopic}), O sistema simulado com as incertezas
+sendo utilizadas com o valor mediano é apresentada na linha $A0_B0$, para os sistemas
+que possuem as 4 combinacões de matrizes $A_1, A_2, B_1, B_2$ que formam os vértices
+do politopo, são apresentados nas demais linhas do gráfico.
+
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=1\columnwidth]{figures/h2_polytopic.eps}
+	\caption{Resposta do sistema (\ref{eq:sis_mf_incerteza}) com o ganho K encontrado 
+		pelo critério de $H_2$}
+	\label{fig:h2_polytopic}
+\end{figure}
 
 %===============================================================================
 \subsection{Incertezas limitadas em norma}
@@ -168,7 +205,7 @@ são os autovalores do sistema em malha fechada.
 
 \begin{figure}[htbp]
 	\center
-	\includegraphics[width=0.95\columnwidth]{figures/h2_norm_bounded.eps}
+	\includegraphics[width=1\columnwidth]{figures/h2_norm_bounded.eps}
 	\caption{Resposta do sistema (\ref{eq:sis_mf_incerteza}) com o ganho K encontrado 
 		pelo critério de $H_2$}
 	\label{fig:h2_norm_bounded}
