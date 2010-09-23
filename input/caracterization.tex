@@ -97,12 +97,11 @@ Com $ \left \| \Delta (t) \right \| \leq 1$.
 De maneira equivalente o sistema de equações de estado fica como em (\ref{eq:carac_lim_norma_sis}).
 
 \begin{equation}
-\left\{\begin{matrix}
-\dot{x}(t)=A_0x(t)+B_0u(t)+Dp(t)
-\\ 
-q(t)=E_Ax(t)+E_Bu(t)\\ 
+\begin{cases} 
+\dot{x}(t)=A_0x(t)+B_0u(t)+Dp(t)\\
+q(t)=E_Ax(t)+E_Bu(t)\\
 p(t)= \Delta (t)q(t)
-\end{matrix}\right.
+\end{cases}
 \label{eq:carac_lim_norma_sis}
 \end{equation}
 
@@ -191,8 +190,8 @@ De maneira equivalente, a equação de estados do sistema pode ser escrito como em
 (\ref{eq:carac_elem_sys}).
 
 \begin{equation}
-\left\{\begin{matrix}
-\dot{x}=A_0 x(t)+B_0 u(t) +\hat{D}p(t)\\ 
+\begin{cases} 
+\dot{x}(t)=A_0 x(t)+B_0 u(t) +\hat{D}p(t)\\ 
 q(t)=\hat{E}_{a}x(t)+\hat{E}_{B}u(t)\\ 
 p(t)=\Delta(t)q(t)\\ 
 \Delta(t)=blocdiag(\Delta_A(t),\Delta_B(t))\\ 
@@ -200,7 +199,7 @@ p_A(t)=\Delta_A(t)q_A(t)\\
 p_B(t)=\Delta_B(t)q_B(t)\\ 
 p(t)=[p_A'(t)p_B'(t)]'\\
 q(t)=[q_A'(t)q_B'(t)]' 
-\end{matrix}\right.
+\end{cases}
 \label{eq:carac_elem_sys}
 \end{equation}
 
