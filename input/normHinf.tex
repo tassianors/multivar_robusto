@@ -25,5 +25,100 @@ $\gamma_{\infty}$ tal que:
 \dot{V}z(t)'z(t)-\gamma_{\infty}^{\omega}\omega(t)'\omega(t)\leq 0
 \nonumber
 \end{equation}
+%===============================================================================
+\subsection{Sistemas Lineares sem incertezas}
+\label{sec:hinf_sis_lin_sem_incertezas}
+
+Considerando o sistema apresentado em (\ref{eq:robust_sis_incert}) em malha fechada, com 
+condicão inicial nula ($x(0)\equiv 0$) e com $ \Delta (t) \equiv 0$, obtem-se desta forma
+o sistema apresentado em (\ref{eq:sis_mf_incerteza}).
+
+\begin{equation}
+\left\{\begin{matrix}
+\dot{x}(t)=(A_0-B_0K)x(t)+B_{\omega}\omega(t)\\ 
+z(t)=(G-HK)x(t)
+\end{matrix}\right.
+\label{eq:sis_mf_incerteza}
+\end{equation}
+
+A LMI que deve ser satisfeita para que a conficão de $H_{\infty}$ seja obtida é apresentada
+em (\ref{eq:hinf_sem_incerteza}).
+
+\begin{equation}
+\begin{bmatrix}
+-WA_0'+R'B_0'-A_0W-B_0R-B_{\omega}B_{\omega}' & -(GW-HR)'\\ 
+ -(GW-HR) & \gamma_{\infty}^2 I  
+\end{bmatrix}\geq 0
+\label{eq:hinf_sem_incerteza}
+\end{equation}
+
+Assim pode-se garantir o limite superior minímo para o ganho $L_2$ do sistema 
+(\ref{eq:sis_mf_incerteza}).
+
+Para o caso de sistemas lineares invariantes no tempo a otimizacão dá exatamente o valor do
+ganho $L_2$ que é igual a norma $H_{\infty}$. 
+
+\begin{equation}
+T(s)=(G-HK)(sI-(A_0-B_0K))^{-1}B_{\omega}
+\nonumber
+\end{equation}
+
+Que é equivalente a:
+
+\begin{equation}
+\left \| T(s) \right \|_{\infty} \equiv \underset{\omega \in \Re}{max}\sqrt{\lambda (T'(j\omega)T(j\omega))}
+\nonumber
+\end{equation}
+
+%===============================================================================
+\subsection{Incertezas do tipo politópico}
+\label{sec:hinf_sis_politopico}
+
+No caso de incertezas do tipo politópicas o limite superior minimo para o ganho $L_2$ pode ser
+definido pela equacão (\ref{eq:hinf_sis_politopico}).
+
+\begin{equation}
+\begin{matrix}
+\begin{bmatrix}
+Y & -(GW-HR)'\\ 
+-(GW-HR) & \gamma_{\infty}^2
+\end{bmatrix}\geq 0
+\\ 
+\\ 
+Y=-WA_i'+R'B_j'-A_iW+B_jR-B_{\omega}B_{\omega}'
+\\ \\
+W>0
+\end{matrix}
+\label{eq:hinf_sis_politopico}
+\end{equation}
+
+
+%===============================================================================
+\subsection{Incertezas limitadas em norma}
+\label{sec:hinf_sis_norm_limit}
+
+Considerando o sistema descrito em (\ref{eq:robust_sis_incert}) com $\left \| \Delta(t) \right \|\leq 1$.
+A condicão descrita em (\ref{eq:hinf_sem_incerteza}) é equivalente a (\ref{eq:hinf_sis_norm_lim}).
+
+\begin{equation}
+\begin{matrix}
+\begin{bmatrix}
+Y &(E_AW-E_BR)' & -(GW-HR)'\\ 
+(E_AW-E_BR) & I & 0\\
+-(GW-HR) & 0& \gamma_{\infty}^2
+\end{bmatrix}\geq 0
+\\ 
+\\ 
+Y=-WA_0'+R'B_0'-A_0W+B_0R-B_{\omega}B_{\omega}'
+\\ \\
+W>0
+\end{matrix}
+\label{eq:hinf_sis_norm_lim}
+\end{equation}
+
+Satisfazendo a equacão (\ref{eq:hinf_sis_norm_lim}) obtem-se o limite superior minimo para o
+ganho $L_2$ e se o sistema for linear e invariante no tempo este valor será o mesmo da norma 
+$H_{\infty}$ da funcão de transferencia entre $\omega$ e $z$.
+
 
 %===============================================================================

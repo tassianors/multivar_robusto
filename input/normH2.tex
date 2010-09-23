@@ -44,7 +44,7 @@ Assim tendo que a norma pode ser apresentada como a seguir:
 
 %===============================================================================
 \subsection{Sistemas Lineares sem incertezas}
-\label{sec:sis_lin_sem_incertezas}
+\label{sec:h2_sis_lin_sem_incertezas}
 
 Se considerarmos o sistema (\ref{eq:robust_sis_incert}) com condições iniciais nulas e $\Delta \equiv 0$
 temos o sistema apresentado em (\ref{eq:normh2_sis_sem_incertezas}).
@@ -129,7 +129,9 @@ Y & (E_AW-E_BR)' & (GW-HR)'\\
 \end{bmatrix} \geq 0
 \\ 
 \\ 
-Y=-WA_0+RB_0'-A_0W +B_0R -\sigma DD'
+Y=-WA_0'+R'B_0'-A_0W +B_0R -DD'
 \end{matrix}
 \label{eq:normh2_norm_limit}
 \end{equation}
+
+Com a realimentacão $K=RW^{-1}$.
