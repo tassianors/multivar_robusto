@@ -12,18 +12,18 @@ b=-0.012725;
 % System description
 A0=[[0 1];[-b*(a(1)+a(2))/2 b+(a(1)+a(2))/2]]
 B0=[0;(k(1)+k(2))/2]
-C=[1 1];
+Bw=B0;%for convinience
+% I choose this value
+C=[1 0];
 Ea=[[(a(1)-a(2))/2 0];[0 (a(1)-a(2))/2]]
 Eb=[0; (k(1)-k(2))/2]
 D=[[0 0];[1 1]]
-
-% need to be defined.
-G=[[1 0];[0 1]]
-H=[1; 1]
+ 
+% z=(G-HK)x
+G=C;
+H=0;
 % get usefuul dimensions
 [n,m]=size(B0);
-%[p,n]=size(C);
-
 
 % Init LMI's descriptions
 setlmis([]);
@@ -31,46 +31,61 @@ setlmis([]);
 % var descriptions
 W=lmivar(1,[n 1]);
 R=lmivar(2,[m,n]);
+% M is a scalar
+M=lmivar(1,[1 1]);
+
+%gamma=lmivar(1,[1,1]);
 
 % realtionship description
 lmi1=newlmi;
-% a11= -W*A0+R*B0'-A0*W+B0*R-tal*D*D'
-% variables are R and W
-lmiterm([lmi1 1 1 W],-1,A0);     % -W*A0
-lmiterm([lmi1 1 1 R],1,B0);     % R*B0'
-lmiterm([lmi1 1 1 W],-A0,1);     % -A0*W
-lmiterm([lmi1 1 1 R],B0,1);      % +B0*R
-lmiterm([lmi1 1 1 0],-D*D');     % -D*D' 
-% a12 = (Ea*W-Eb*R)
-lmiterm([lmi1 1 2 W],Ea,1);     % Ea*W 
-lmiterm([lmi1 1 2 R],-Eb,1);    % -Eb*R
-% a13 = (Ea*W-Eb*R)
-lmiterm([lmi1 1 3 W],G,1);      % G*W 
-lmiterm([lmi1 1 3 R],-H,1);    % -H*R
+% a11
+lmiterm([-lmi1 1 1 W],-A0,1,'s'); % Symmetric
+lmiterm([-lmi1 1 1 R],1,B0, 's'); % Symetric 
+lmiterm([-lmi1 1 1 0],-D*D');     % -D*D'
+
+% a12 = (Ea*W-Eb*R)'
+lmiterm([-lmi1 1 2 W],1,Ea');     % W*Ea'
+lmiterm([-lmi1 1 2 -R],1,-Eb');   % -R'*Eb'
+% a13 = (G*W-H*R)'
+lmiterm([-lmi1 1 3 W],1,G');      % W*G'
+lmiterm([-lmi1 1 3 -R],1,-H');    % -R'*H'
 %a22
-lmiterm([lmi1 2 2 0],1);        % I
+lmiterm([-lmi1 2 2 0],1);         % I
 % A33
-lmiterm([lmi1 3 3 0],1);        % I
+lmiterm([-lmi1 3 3 0],1);         % I
 
 lmi2=newlmi;
 lmiterm([-lmi2 1 1 W],1,1);      % W > 0
+
+lmi3=newlmi;
+lmiterm([-lmi3 1 1 M],1,1);
+lmiterm([-lmi3 1 2 0],Bw');
+lmiterm([-lmi3 2 2 W],1,1);
 
 % finish relationship description
 nomesis = getlmis;
 
 % solve
-[aa,gopt]=feasp(nomesis);
+no = decnbr(nomesis);
+co = zeros(no,1);
+for j=1:no,
+[Mj] = defcx(nomesis,j,M);
+co(j) = trace(Mj);
+end
+
+%Executa a minimiza�ao do criterio
+[copt,gopt] = mincx(nomesis,co);
 
 % Get numerical results
 W_o=dec2mat(nomesis,gopt,W)
 R_o=dec2mat(nomesis,gopt,R)
-
+M_o=dec2mat(nomesis,gopt,M)
 % get K feedback matrix
 K=R_o*inv(W_o)
 
 % compare solutions
 autoA=eig(A0)
-autoABK=eig(A0+B0*K)
+autoABK=eig(A0-B0*K)
 
-sys=ss(A0+B0*K,B0,C,0)
+sys=ss(A0-B0*K,B0,C,0)
 step(sys)

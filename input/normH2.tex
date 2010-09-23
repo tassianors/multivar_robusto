@@ -134,4 +134,42 @@ Y=-WA_0'+R'B_0'-A_0W +B_0R -DD'
 \label{eq:normh2_norm_limit}
 \end{equation}
 
-Com a realimentacão $K=RW^{-1}$.
+Com a realimentação $K=RW^{-1}$.
+%===============================================================================
+\subsubsection{Simulação}
+
+A resolução do sistema de LMIs (\ref{eq:normh2_norm_limit}) gerou os seguintes resultados:
+
+\begin{equation}
+\begin{matrix}
+W=\begin{bmatrix}
+0.4644 &  -0.0305\\
+-0.0305 &   0.7975
+\end{bmatrix}\\ \\ 
+R=1.10^3\begin{bmatrix}
+0.0009 &  -8.6987
+\end{bmatrix}
+\\ \\
+K=1.10^4\begin{bmatrix}
+-0.0716 &  -1.0935
+\end{bmatrix}
+\\ \\
+M =  0.0170
+\\
+\lambda_1=-0.0326\\
+\lambda_2=-1.7666
+\end{matrix}
+\nonumber
+\end{equation}
+
+A simulação do sistema em malha fechada com o ganho $K$ encontrado obtem a resposta
+apresentada na Figura (\ref{fig:h2_norm_bounded}). Os valores de $\lambda_1$ e $\lambda_2$ 
+são os autovalores do sistema em malha fechada.
+
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=0.95\columnwidth]{figures/h2_norm_bounded.eps}
+	\caption{Resposta do sistema (\ref{eq:sis_mf_incerteza}) com o ganho K encontrado 
+		pelo critério de $H_2$}
+	\label{fig:h2_norm_bounded}
+\end{figure}

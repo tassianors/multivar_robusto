@@ -79,6 +79,6 @@ K=R_o*inv(W_o)
 autoA=eig(A0)
 autoABK=eig(A0-B0*K)
 
-sys=ss(A0-B0*K,B0,C,0)
-step(sys)
+sys=ss(A0-B0*K,B0,C,0);
+step(sys);
 
