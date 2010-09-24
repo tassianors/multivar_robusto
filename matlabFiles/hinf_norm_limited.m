@@ -17,6 +17,7 @@ b=-0.012725;
 % System description
 A0=[[0 1];[-b*(a(1)+a(2))/2 b+(a(1)+a(2))/2]]
 B0=[0;(k(1)+k(2))/2]
+Bw=B0;%for convinience
 % I choose this value
 C=[1 0];
 Ea=[[(a(1)-a(2))/2 0];[0 (a(1)-a(2))/2]]
@@ -41,15 +42,15 @@ lmi1=newlmi;
 
 % variables are R, W and gamma
 lmiterm([-lmi1 1 1 W],-A0,1,'s'); % symmetric
-lmiterm([-lmi1 1 1 R],1,B0, 's'); % symmetric
-lmiterm([-lmi1 1 1 0],-B0*B0');   % Choose Bw = B0 for convenience (not specified) 
+lmiterm([-lmi1 1 1 R],1,B0,'s'); % symmetric
+lmiterm([-lmi1 1 1 0],-Bw*Bw');   % Choose Bw = B0 for convenience (not specified) 
 lmiterm([-lmi1 1 1 0],-D*D');     % -D*D'
 % a12 = (Ea*W-Eb*R)'
 lmiterm([-lmi1 1 2 W],1,Ea');     % W*Ea'
 lmiterm([-lmi1 1 2 -R],1,-Eb');   % -R'*Eb'
 % a13 = (G*W-H*R)'
-lmiterm([-lmi1 1 3 W],1,G');      % W*G'
-lmiterm([-lmi1 1 3 -R],1,-H');    % -R'*H'
+lmiterm([-lmi1 1 3 W],1,-G');      % W*G'
+lmiterm([-lmi1 1 3 -R],1,H');    % -R'*H'
 %a22
 lmiterm([-lmi1 2 2 0],1);         % I
 % A33

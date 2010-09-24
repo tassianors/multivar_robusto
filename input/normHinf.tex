@@ -96,6 +96,42 @@ W>0
 \label{eq:hinf_sis_politopico}
 \end{equation}
 
+%===============================================================================
+\subsubsection{Simulação}
+
+A resolução do sistema de LMIs (\ref{eq:hinf_sis_politopico}) gerou os seguintes resultados:
+
+\begin{equation}
+\begin{matrix}
+W=\begin{bmatrix}
+0.0012 &  -0.6805\\
+-0.6805 & 390.6637
+\end{bmatrix}\\ \\ 
+R=1.10^8\begin{bmatrix}
+-0.0458 &  -9.9849
+\end{bmatrix}
+\\ \\
+K=1.10^12\begin{bmatrix}
+-2.4902 &  -0.0043
+\end{bmatrix}
+\\ \\
+\gamma_{\infty}^2 =2.1730e-11
+\end{matrix}
+\nonumber
+\end{equation}
+
+A simulação do sistema em malha fechada com o ganho $K$ encontrado obtem a resposta
+apresentada na Figura (\ref{fig:hinf_polytopic}). Os valores de $\lambda_1$ e $\lambda_2$ 
+são os autovalores do sistema em malha fechada.
+
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=0.95\columnwidth]{figures/hinf_polytopic.eps}
+	\caption{Resposta do sistema (\ref{eq:sis_mf_incerteza}) com o ganho K encontrado 
+		pelo critério de $H_{\infty}$}
+	\label{fig:hinf_polytopic}
+\end{figure}
+
 
 %===============================================================================
 \subsection{Incertezas limitadas em norma}
