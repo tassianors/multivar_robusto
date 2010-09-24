@@ -48,53 +48,45 @@ M=lmivar(1,[1 1]);
 lmi1a=newlmi;
 % a11
 lmiterm([-lmi1a 1 1 W],-A1,1,'s'); % Symmetric
-lmiterm([-lmi1a 1 1 R],1,B1, 's'); % Symetric 
+lmiterm([-lmi1a 1 1 R],B1,1, 's'); % Symetric 
 % a12 = (G*W-H*R)'
-lmiterm([-lmi1a 1 2 W],1,G');      % W*G'
-lmiterm([-lmi1a 1 2 -R],1,-H');    % -R'*H'
+lmiterm([-lmi1a 1 2 W],-1,G');      % W*G'
+lmiterm([-lmi1a 1 2 -R],1,H');    % -R'*H'
 %a22
 lmiterm([-lmi1a 2 2 0],1);         % I
-% A33
-lmiterm([-lmi1a 3 3 0],1);         % I
 %========================================
 % equation 2 - A1 B2
 lmi1b=newlmi;
 % a11
 lmiterm([-lmi1b 1 1 W],-A1,1,'s'); % Symmetric
-lmiterm([-lmi1b 1 1 R],1,B2, 's'); % Symetric 
+lmiterm([-lmi1b 1 1 R],B2,1, 's'); % Symetric 
 % a12 = (G*W-H*R)'
-lmiterm([-lmi1b 1 2 W],1,G');      % W*G'
-lmiterm([-lmi1b 1 2 -R],1,-H');    % -R'*H'
+lmiterm([-lmi1b 1 2 W],-1,G');      % W*G'
+lmiterm([-lmi1b 1 2 -R],1,H');    % -R'*H'
 %a22
 lmiterm([-lmi1b 2 2 0],1);         % I
-% A33
-lmiterm([-lmi1b 3 3 0],1);         % I
 %========================================
 % equation 3 - A2 B1
 lmi1c=newlmi;
 % a11
 lmiterm([-lmi1c 1 1 W],-A2,1,'s'); % Symmetric
-lmiterm([-lmi1c 1 1 R],1,B1, 's'); % Symetric 
+lmiterm([-lmi1c 1 1 R],B1,1, 's'); % Symetric 
 % a12 = (G*W-H*R)'
-lmiterm([-lmi1c 1 2 W],1,G');      % W*G'
-lmiterm([-lmi1c 1 2 -R],1,-H');    % -R'*H'
+lmiterm([-lmi1c 1 2 W],-1,G');      % W*G'
+lmiterm([-lmi1c 1 2 -R],1,H');    % -R'*H'
 %a22
-lmiterm([-lmi1c 2 2 0],1);         % I
-% A33
-lmiterm([-lmi1c 3 3 0],1);         % I
+lmiterm([-lmi1c 2 2 0],1);         % II
 %========================================
 % equation 4 - A2 B2
 lmi1d=newlmi;
 % a11
 lmiterm([-lmi1d 1 1 W],-A2,1,'s'); % Symmetric
-lmiterm([-lmi1d 1 1 R],1,B2, 's'); % Symetric 
+lmiterm([-lmi1d 1 1 R],B2,1, 's'); % Symetric 
 % a12 = (G*W-H*R)'
-lmiterm([-lmi1d 1 2 W],1,G');      % W*G'
-lmiterm([-lmi1d 1 2 -R],1,-H');    % -R'*H'
+lmiterm([-lmi1d 1 2 W],-1,G');      % W*G'
+lmiterm([-lmi1d 1 2 -R],1,H');    % -R'*H'
 %a22
 lmiterm([-lmi1d 2 2 0],1);         % I
-% A33
-lmiterm([-lmi1d 3 3 0],1);         % I
 %========================================
 
 lmi2=newlmi;
@@ -112,8 +104,8 @@ nomesis = getlmis;
 no = decnbr(nomesis);
 co = zeros(no,1);
 for j=1:no,
-[Mj] = defcx(nomesis,j,M);
-co(j) = trace(Mj);
+    [Mj] = defcx(nomesis,j,M);
+    co(j) = trace(Mj);
 end
 
 %Executa a minimiza�ao do criterio
